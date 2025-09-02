@@ -1,7 +1,7 @@
-Create TABLE IF NOT EXISTS watches(
+CREATE TABLE IF NOT EXISTS watches (
     id SERIAL PRIMARY KEY,
-    link TEXT,
-    interval INT,
-    created_at TIMESTAMP,
-    expected_status INT
-)
+    url TEXT NOT NULL,
+    interval_ms INT NOT NULL,
+    expected_status INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

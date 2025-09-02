@@ -1,37 +1,33 @@
 package main
 
 import (
-    "fmt"
-    //"log"
-    //"net/http"
-    "time"
-    _ "github.com/lib/pq"
+	"log"
+	"time"
+
+	_ "github.com/lib/pq"
 
 	"job_ping/database" //postgres.go file
+	"job_ping/models"
+
+	
 )
 
-//urls to monitor
-type Watch struct {
-	ID int
-	URL string
-	Interval int
-	ExpectedStatus int
+
+func getWatches(db *sql.DB) ([]models.Watch, error) {
+
+	return nil, nil
 }
 
-//Resutl from checking each 'Watch'ed url
-type Result struct {
-	WatchID int
-	Status int
-	LatencyMS int64
-	Success bool
-	CheckedAt time.Time
-}
 
 func main() {
 
-	db, _ := database.ConnectDB()
-	database.InitDB(db) //tables setup
-	fmt.Println("Hello, World!")
+	db, err := database.ConnectDB()
+	if err != nil {
+		log.Fatal("Failed to connect to database:", err)
+	}
+	defer db.Close()
 
+	// database.InitDB(db) //tables setup
 
+	//watches, err := database.GetAllWatches(db)
 }
