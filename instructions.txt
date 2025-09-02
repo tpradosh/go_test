@@ -103,7 +103,27 @@ docker-compose restart api    # Restart only API
 That's it! Simple start/stop commands to manage your entire application stack.
 
 
+start
+docker compose up -d db api 
+#build api and db
 
+docker compose up -d --build worker 
+#build worker 
+
+docker compose logs -f worker 
+#worker logs
+
+go run ./worker 
+#to run locally without docker
+#ctrl c on the worker terminal on this 
+
+docker compose down 
+#stop everything
+
+
+
+
+CREATING A WATCH URL
 
 curl -X POST http://localhost:8080/watch \
   -H "Content-Type: application/json" \
@@ -112,3 +132,8 @@ curl -X POST http://localhost:8080/watch \
     "interval_ms": 30000,
     "expected_status": 200
   }'
+
+
+  or 
+
+  curl -X POST http://localhost:8080/watch -H "Content-Type: application/json" -d '{"url":"https://example.com","interval_ms":30000,"expected_status":200}'

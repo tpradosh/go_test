@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"io/ioutil"
+	"job_ping/models"
 	"log"
 	"os"
 
@@ -64,4 +65,28 @@ func InitDB(ptr *sql.DB) {
 			log.Fatal(err)
 		}
 	}
+}
+
+func GetAllWatches(db *sql.DB) ([]models.Watch, error) {
+	/*gets all the watches from db*/
+
+	rows, err := db.Query("SELECT id, url, interval_ms, expected_status, created_at FROM watches ORDER BY id")
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	watches := []models.Watch{}
+
+	for rows.Next() {
+		var w models.Watch
+		if err := rows.Scan(&w.ID, &w.URL, &w.IntervalMS, &w.ExpectedStatus, &w.CreatedAt); err != nil {
+			return nil, err
+		}
+		watches = append(watches, w)
+	}
+
+	return watches, nil
 }

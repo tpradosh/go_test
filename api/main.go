@@ -61,8 +61,7 @@ func main() {
 	}
 }
 
-
-// POST /watch 
+// POST /watch
 func createWatch(c *gin.Context) {
 	var w models.Watch
 	if err := c.ShouldBindJSON(&w); err != nil {
@@ -85,21 +84,10 @@ func createWatch(c *gin.Context) {
 
 // GET /watches for all watches in db
 func listWatches(c *gin.Context) {
-	rows, err := db.Query("SELECT id, url, interval_ms, expected_status, created_at FROM watches ORDER BY id")
+	watches, err := database.GetAllWatches(db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
-	}
-	defer rows.Close()
-
-	var watches []models.Watch
-	for rows.Next() {
-		var w models.Watch
-		if err := rows.Scan(&w.ID, &w.URL, &w.IntervalMS, &w.ExpectedStatus, &w.CreatedAt); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		watches = append(watches, w)
 	}
 
 	c.JSON(http.StatusOK, watches)
