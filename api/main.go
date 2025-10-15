@@ -16,17 +16,15 @@ var db *sql.DB
 func main() {
 	var err error
 
-	// Initialize database
+	// start up the db
 	db, err = database.ConnectDB()
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
 	defer db.Close()
-
-	// Initialize database tables
+	 
 	database.InitDB(db)
 
-	// Set up Gin router
 	r := gin.Default()
 
 	// Add CORS middleware

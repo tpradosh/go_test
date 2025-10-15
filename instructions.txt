@@ -1,124 +1,21 @@
-Sure! Here's how to start and stop your program:
-
-## �� **How to Start the Program**
-
-### **Option 1: Start Everything (Recommended)**
-```bash
-docker-compose up -d
-```
-- Starts all services (database, API, worker) in the background
-- `-d` flag runs containers in detached mode (background)
-- All services will start automatically in the correct order
-
-### **Option 2: Start with Live Logs**
-```bash
-docker-compose up
-```
-- Starts all services and shows live logs
-- Good for debugging and seeing what's happening
-- Press `Ctrl+C` to stop and see logs
-
-### **Option 3: Start Individual Services**
-```bash
-docker-compose up -d db        # Start only database
-docker-compose up -d api       # Start only API
-docker-compose up -d worker    # Start only worker
-```
-
-## 🛑 **How to Stop the Program**
-
-### **Option 1: Stop Everything (Recommended)**
-```bash
-docker-compose down
-```
-- Stops all running containers
-- Removes containers and networks
-- **Keeps your data** (database volume remains)
-
-### **Option 2: Stop and Remove Everything**
-```bash
-docker-compose down -v
-```
-- Stops all containers
-- Removes containers, networks, **AND volumes**
-- **WARNING:** This will delete all your database data!
-
-### **Option 3: Stop Individual Services**
-```bash
-docker-compose stop db        # Stop only database
-docker-compose stop api       # Stop only API
-docker-compose stop worker    # Stop only worker
-```
-
-## 📊 **Check Program Status**
-
-### **See Running Services**
-```bash
-docker-compose ps
-```
-- Shows which services are running/stopped
-- Displays container status and ports
-
-### **See Service Logs**
-```bash
-docker-compose logs           # All services
-docker-compose logs api       # Only API logs
-docker-compose logs worker    # Only worker logs
-docker-compose logs db        # Only database logs
-```
-
-### **Follow Live Logs**
-```bash
-docker-compose logs -f        # Follow all logs
-docker-compose logs -f api    # Follow only API logs
-```
-
-## �� **Restart Services**
-
-### **Restart Everything**
-```bash
-docker-compose restart
-```
-
-### **Restart Individual Service**
-```bash
-docker-compose restart api    # Restart only API
-```
-
-## �� **Typical Workflow:**
-
-1. **Start:** `docker-compose up -d`
-2. **Check status:** `docker-compose ps`
-3. **View logs if needed:** `docker-compose logs -f`
-4. **Stop when done:** `docker-compose down`
-
-## ⚠️ **Important Notes:**
-
-- **Database data persists** between `up`/`down` cycles
-- **Only use `down -v`** if you want to completely reset everything
-- **API will be available** at `http://localhost:8080` when running
-- **Database will be available** at `localhost:5432` when running
-- **Worker runs continuously** in the background monitoring your watches
-
-That's it! Simple start/stop commands to manage your entire application stack.
-
-
 start
-docker compose up -d db api 
+
 #build api and db
+docker compose up -d db api 
 
-docker compose up -d --build worker 
 #build worker 
+docker compose up -d --build worker 
 
-docker compose logs -f worker 
 #worker logs
+docker compose logs -f worker 
 
-go run ./worker 
+
 #to run locally without docker
 #ctrl c on the worker terminal on this 
+go run ./worker 
 
-docker compose down 
 #stop everything
+docker compose down 
 
 
 
